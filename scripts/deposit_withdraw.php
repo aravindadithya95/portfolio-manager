@@ -17,10 +17,15 @@ if ($_POST['type'] == "deposit") {
   $query = "INSERT INTO transactions VALUES(\"Deposit Cash\", '$username', \"\", now(), 0, 0, '$amount', 0)";
   $result = mysqli_query($conn, $query);
 } else {
-  $query = "UPDATE users SET cash = cash - '$amount' WHERE username = '$username'";
+  $query = "SELECT cash FROM users WHERE username = '$username'";
   $result = mysqli_query($conn, $query);
-  $query = "INSERT INTO transactions VALUES(\"Withdraw Cash\", '$username', \"\", now(), 0, 0, '$amount', 0)";
-  $result = mysqli_query($conn, $query);
+  $cash = mysqli_fetch_assoc($result)['cash'];
+  if ($cash >= $amount) {
+    $query = "UPDATE users SET cash = cash - '$amount' WHERE username = '$username'";
+    $result = mysqli_query($conn, $query);
+    $query = "INSERT INTO transactions VALUES(\"Withdraw Cash\", '$username', \"\", now(), 0, 0, '$amount', 0)";
+    $result = mysqli_query($conn, $query);
+  }
 }
 
 header("location: ../home.php");
