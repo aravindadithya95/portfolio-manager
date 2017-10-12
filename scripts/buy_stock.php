@@ -86,6 +86,7 @@ if ($cash_deposit >= $cash_req) {
   }
 } else {
   echo "Not enough cash deposit";
+  exit();
 }
 
 unset($_SESSION['buy']);
