@@ -1,6 +1,26 @@
 <?php
 session_start();
 
+$_SESSION['buy_stock'] = $_POST['buy_stock'];
+$_SESSION['buy_shares'] = $_POST['buy_shares'];
+$_SESSION['buy_price'] = $_POST['buy_price'];
+
+$_SESSION['sell_stock'] = $_POST['sell_stock'];
+
+if (isset($_POST['add'])) {
+  
+
+  //header("location: ../home.php");
+  exit();
+}
+
+if (isset($_POST['select'])) {
+  $_SESSION['select'] = true;
+
+  header("location: ../home.php");
+  exit();
+}
+
 if (!isset($_POST['add'])) {
   header("location: ../home.php");
   exit();
