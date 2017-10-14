@@ -8,8 +8,8 @@ if (!isset($_SESSION['username'])) {
 
 $username = $_SESSION['username'];
 
-$query = "SELECT * FROM USER_STOCKS"
-
+$query = "SELECT * FROM USER_STOCKS";
+$result = mysqli_query($conn, $query);
 
 ?>
 <html>
