@@ -2,10 +2,14 @@
 session_start();
 require 'scripts/database.php';
 
+if (!isset($_SESSION['username'])) {
+	header("location: login.php");
+}
+
 $username = $_SESSION['username'];
 
-$query = "SELECT * FROM users WHERE username = '$username'";
-echo $query;
+$query = "SELECT * FROM USER_STOCKS"
+
 
 ?>
 <html>
@@ -14,6 +18,7 @@ echo $query;
 
 </head>
 <body>
+  <h3>View Portfolio</h3>
   <table>
     <tr>
       <th>Name</th>
@@ -26,6 +31,8 @@ echo $query;
       <th>Gain</th>
       <th>Gain %</th>
       <th>Expected Return</th>
+    </tr>
+    <tr>
     </tr>
   </table>
 </body>

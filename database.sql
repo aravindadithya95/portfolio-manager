@@ -15,3 +15,18 @@ INSERT INTO stocks VALUES("Stock 1", "IS1", 300);
 SELECT * FROM users;
 SELECT * FROM transactions;
 SELECT * FROM user_stocks;
+
+update stocks set stock_name = "Axis Bank Ltd"  where symbol = "IS1";
+update stocks set symbol = "AXISBANK.NS" where stock_name = "Axis Bank Ltd";
+update stocks set sept_price = "164.05" where symbol = "AAPL";
+update stocks set sept_price = "507.55" where symbol = "AXISBANK.NS";
+
+INSERT INTO stocks VALUES ("Microsoft Corp.", "MSFT", "73.94");
+INSERT INTO stocks VALUES ("The Walt Disney Co.", "DIS", "101.50");
+INSERT INTO stocks VALUES ("IBM", "IBM", "144.08");
+INSERT INTO stocks VALUES ("Nike Inc.", "NKE", "53.36");
+INSERT INTO stocks VALUES ("Pfizer Inc.", "PFE", "33.96");
+
+INSERT INTO stocks VALUES ("Bharti Airtel Ltd.", "BHARTIARTL.NS", "422.55");
+INSERT INTO stocks VALUES ("TCS Ltd.", "TCS.NS", "2456.45");
+INSERT INTO stocks VALUES ("Kotak Mahindra Ltd.", "KOTAKBANK.NS", "992.55");
