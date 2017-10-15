@@ -46,12 +46,14 @@ $result = mysqli_query($conn, $query);
 		<td>
 			<?php
 			$stockname = row['symbol'];
+			echo $stockname;
 			echo row['symbol'];
 			?>
 		</td>
 		<td>
 			<?php
 			$url = 'https://finance.yahoo.com/quote/' . $stockname;
+			echo $url;
 
 			$data = file_get_contents($url);
 			$dom = new DOMDocument();
