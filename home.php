@@ -74,6 +74,7 @@ if (!isset($_SESSION['username'])) {
 
 		<h1>Sell</h1>
 		<select name="sell_stock">
+			<optgroup label="Domestic">
 			<option name="aapl"
 			<?php if (isset($_SESSION['sell_stock']) && $_SESSION['sell_stock'] == "AAPL") echo "selected";
 			?>>AAPL</option>
@@ -81,7 +82,7 @@ if (!isset($_SESSION['username'])) {
 			<?php if (isset($_SESSION['sell_stock']) && $_SESSION['sell_stock'] == "MSFT") echo "selected";
 			?>>MSFT</option>
 			<option name="dis"
-			<?php if (isset($_SESSION['sell_stock']) && $_SESSION['sell_stock0'] == "DIS") echo "selected";
+			<?php if (isset($_SESSION['sell_stock']) && $_SESSION['sell_stock'] == "DIS") echo "selected";
 			?>>DIS</option>
 			<option name="ibm"
 			<?php if (isset($_SESSION['sell_stock']) && $_SESSION['sell_stock'] == "IBM") echo "selected";
@@ -90,8 +91,10 @@ if (!isset($_SESSION['username'])) {
 			<?php if (isset($_SESSION['sell_stock']) && $_SESSION['sell_stock'] == "NKE") echo "selected";
 			?>>NKE</option>
 			<option name="pfe"
-			<?php if (isset($_SESSION['sell_stock']) && $_SESSION['bsell_stock'] == "PFE") echo "selected";
+			<?php if (isset($_SESSION['sell_stock']) && $_SESSION['sell_stock'] == "PFE") echo "selected";
 			?>>PFE</option>
+		</optgroup>
+		<optgroup label="Overseas">
 			<option name="axisbank.ns"
 			<?php if (isset($_SESSION['sell_stock']) && $_SESSION['sell_stock'] == "AXISBANK.NS") echo "selected";
 			?>>AXISBANK.NS</option>
@@ -104,8 +107,10 @@ if (!isset($_SESSION['username'])) {
 			<option name="kotakbank.ns"
 			<?php if (isset($_SESSION['sell_stock']) && $_SESSION['sell_stock'] == "KOTAKBANK.NS") echo "selected";
 			?>>KOTAKBANK.NS</option>
-		</select>
+		</optgroup>
+	</select>
 		<button type="submit" name="select">Select</button>
+		<br><br>
 		<input type="number" step="1" min="1" name="sell_shares" placeholder="Shares"
 		<?php if (isset($_SESSION['sell_shares'])) {echo "value=\"" . $_SESSION['sell_shares'] . "\"";}?>
 		/>

@@ -15,10 +15,10 @@ INSERT INTO stocks VALUES ("IBM", "IBM", "144.08", "0");
 INSERT INTO stocks VALUES ("Nike Inc.", "NKE", "53.36", "0");
 INSERT INTO stocks VALUES ("Pfizer Inc.", "PFE", "33.96", "0");
 
-INSERT INTO stocks VALUES ("Axis Bank Ltd", "AXISBANK.NS", "0", "507.55");
-INSERT INTO stocks VALUES ("Bharti Airtel Ltd.", "BHARTIARTL.NS", "0", "422.55");
-INSERT INTO stocks VALUES ("TCS Ltd.", "TCS.NS", "0", "2456.45");
-INSERT INTO stocks VALUES ("Kotak Mahindra Ltd.", "KOTAKBANK.NS", "0", "992.55");
+INSERT INTO stocks VALUES ("Axis Bank Ltd", "AXISBANK.NS", "50", "507.55");
+INSERT INTO stocks VALUES ("Bharti Airtel Ltd.", "BHARTIARTL.NS", "50", "422.55");
+INSERT INTO stocks VALUES ("TCS Ltd.", "TCS.NS", "50", "2456.45");
+INSERT INTO stocks VALUES ("Kotak Mahindra Ltd.", "KOTAKBANK.NS", "50", "992.55");
 
 SELECT * FROM users;
 SELECT * FROM transactions;
