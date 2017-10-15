@@ -12,13 +12,15 @@ if (isset($_SESSION['username'])) {
 	<title>Login | Portfolio</title>
 </head>
 <body>
+<center>
 	<h1>Login</h1>
 	<form action="scripts/auth.php" method="post">
 		<input type="text" name="username" placeholder="Username"/>
-		<br>
+		<br><br>
 		<input type="password" name="password" placeholder="Password"/>
-		<br>
+		<br><br>
 		<button type="submit" name="login">Login</button>
 	</form>
+</center>
 </body>
 </html>
