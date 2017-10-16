@@ -2,7 +2,8 @@
 #$stockname = "COALINDIA.NS";
 #$stockname = "AXISBANK.NS";
 #$stockname = "GOOG";
-$stockname = "AAPL";
+#$stockname = "TCS.NS";
+$stockname = $_SESSION['stockname'];
 $url = 'https://finance.yahoo.com/quote/' . $stockname;
 
 $data = file_get_contents($url);
@@ -24,6 +25,8 @@ $current = $price->item(0)->nodeValue;
 echo "Price:  ". $current;
 echo "<br>";
 echo "Gain (Gain %):  ". $sign->item(0)->nodeValue . $change->item(0)->nodeValue;
+
+$_SESSION['price'] = $current;
 #echo $nodes;
 
 #$items = $dom -> getElementsByTagName('h1');
