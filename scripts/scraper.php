@@ -24,12 +24,14 @@ $change = $xpath->query('//*[@id="quote-header-info"]/div[3]/div[1]/div/span[2]/
 #node = $xpath->query('//*[@id="quote-header-info"]/[class="D(ib) Mend(20px)"]/span[0]/text()')
 echo "Stockname:  " . $stockname;
 echo "<br>";
-$current = $price->item(0)->nodeValue;
-echo "Price:  ". $current;
-echo "<br>";
-echo "Gain (Gain %):  ". $sign->item(0)->nodeValue . $change->item(0)->nodeValue;
+$current_price = $price->item(0)->nodeValue;
+$gain_and_percent = $sign->item(0)->nodeValue . $change->item(0)->nodeValue;
 
-// Access values directly using variable names
+echo "Price:  ". $current_price;
+echo "<br>";
+echo "Gain (Gain %):  ". $gain_and_percent;
+
+// Access values directly using variable names $current_price and $gain_and_percent
 
 //$_SESSION['price'] = $current;
 #echo $nodes;
