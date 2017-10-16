@@ -58,10 +58,18 @@ $result = mysqli_query($conn, $query);
 		</td>
 		<td>
 			<?php
+      $stockname = $symbol;
       require 'scripts/scraper.php';
-      
+      echo $current_price;
 			?>
 			</td>
+      <td>
+        <?php
+        $stockname = $symbol;
+        require 'scripts/scraper.php';
+        echo $gain_and_percent;
+        ?>
+      </td>
     </tr>
 		<?php
 		}
