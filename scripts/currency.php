@@ -1,6 +1,6 @@
 <?php
 
-$currency = "INRUSD=X";
+$currency = "USDINR=X";
 $url = 'https://finance.yahoo.com/quote/' . $currency;
 
 $data = file_get_contents($url);
