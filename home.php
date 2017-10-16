@@ -50,9 +50,9 @@ if (!isset($_SESSION['username'])) {
 
 		<h4>Overseas</h4>
 		<select name="buy_stock_overseas">
-			<option name="axisbank.ns"
-			<?php if (isset($_SESSION['buy_stock_overseas']) && $_SESSION['buy_stock_overseas'] == "AXISBANK.NS") echo "selected";
-			?>>AXISBANK.NS</option>
+			<option name="tatamotors.ns"
+			<?php if (isset($_SESSION['buy_stock_overseas']) && $_SESSION['buy_stock_overseas'] == "TATAMOTORS.NS") echo "selected";
+			?>>TATAMOTORS.NS</option>
 			<option name="bhartiartl.ns"
 			<?php if (isset($_SESSION['buy_stock_overseas']) && $_SESSION['buy_stock_overseas'] == "BHARTIARTL.NS") echo "selected";
 			?>>BHARTIARTL.NS</option>
@@ -91,9 +91,9 @@ if (!isset($_SESSION['username'])) {
 			?>>PFE</option>
 		</optgroup>
 		<optgroup label="Overseas">
-			<option name="axisbank.ns"
-			<?php if (isset($_SESSION['sell_stock']) && $_SESSION['sell_stock'] == "AXISBANK.NS") echo "selected";
-			?>>AXISBANK.NS</option>
+			<option name="tatamotors.ns"
+			<?php if (isset($_SESSION['sell_stock']) && $_SESSION['sell_stock'] == "TATAMOTORS.NS") echo "selected";
+			?>>TATAMOTORS.NS</option>
 			<option name="bhartiartl.ns"
 			<?php if (isset($_SESSION['sell_stock']) && $_SESSION['sell_stock'] == "BHARTIARTL.NS") echo "selected";
 			?>>BHARTIARTL.NS</option>
@@ -169,7 +169,7 @@ if (!isset($_SESSION['username'])) {
 			<option value="deposit">Deposit</option>
 			<option value="withdraw">Withdraw</option>
 		</select>
-		<input type="text" name="amount" placeholder="Amount"/>
+		<input type="number" min="1" name="amount" placeholder="Amount"/>
 		<br><br>
 		<button type="submit" name="add">Add to Portfolio</button>
 	</form>

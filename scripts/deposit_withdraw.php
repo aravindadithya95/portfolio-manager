@@ -11,21 +11,30 @@ $amount = $_POST['amount'];
 
 require 'database.php';
 
+$query = "SELECT * FROM users WHERE username = '$username'";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
+$cash = $row['cash'];
+$dow30_value = $row['dow30_value'];
+$overseas_value = $row['overseas_value'];
 if ($_POST['type'] == "deposit") {
-  $query = "UPDATE users SET cash = cash + '$amount' WHERE username = '$username'";
-  $result = mysqli_query($conn, $query);
-  $query = "INSERT INTO transactions VALUES(\"Deposit Cash\", '$username', \"\", now(), 0, 0, '$amount', 0)";
-  $result = mysqli_query($conn, $query);
+    if ($amount + $cash <= 0.1 * ($dow30_value + $overseas_value)) {
+        $query = "UPDATE users SET cash = cash + '$amount' WHERE username = '$username'";
+        $result = mysqli_query($conn, $query);
+        $query = "INSERT INTO transactions VALUES(\"Deposit Cash\", '$username', \"\", now(), 0, 0, 0, '$amount')";
+        $result = mysqli_query($conn, $query);
+    } else {
+        echo "Too much cash";
+    }
 } else {
-  $query = "SELECT cash FROM users WHERE username = '$username'";
-  $result = mysqli_query($conn, $query);
-  $cash = mysqli_fetch_assoc($result)['cash'];
   if ($cash >= $amount) {
     $query = "UPDATE users SET cash = cash - '$amount' WHERE username = '$username'";
     $result = mysqli_query($conn, $query);
-    $query = "INSERT INTO transactions VALUES(\"Withdraw Cash\", '$username', \"\", now(), 0, 0, '$amount', 0)";
+    $query = "INSERT INTO transactions VALUES(\"Withdraw Cash\", '$username', \"\", now(), 0, 0, 0, -'$amount')";
     $result = mysqli_query($conn, $query);
-  }
+} else {
+    echo "Not enough funds";
+}
 }
 
 header("location: ../home.php");
