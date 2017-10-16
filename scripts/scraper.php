@@ -1,4 +1,5 @@
 <?php
+session_start();
 #$stockname = "COALINDIA.NS";
 #$stockname = "AXISBANK.NS";
 #$stockname = "GOOG";
