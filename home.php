@@ -22,7 +22,7 @@ if (!isset($_SESSION['username'])) {
 	<form action="scripts/buy_sell.php" method="post">
 		<h1>Buy</h1>
 
-		<h3>Domestic</h3>
+		<h4>Domestic</h4>
 		<select name="buy_stock_dow30">
 			<option name="aapl"
 			<?php if (isset($_SESSION['buy_stock_dow30']) && $_SESSION['buy_stock_dow30'] == "AAPL") echo "selected";
@@ -43,14 +43,12 @@ if (!isset($_SESSION['username'])) {
 			<?php if (isset($_SESSION['buy_stock_dow30']) && $_SESSION['buy_stock_dow30'] == "PFE") echo "selected";
 			?>>PFE</option>
 		</select>
+		&nbsp;
 		<input type="number" step="1" min="1" name="buy_shares_dow30" placeholder="Shares"
 		<?php if (isset($_SESSION['buy_shares_dow30'])) {echo "value=\"" . $_SESSION['buy_shares_dow30'] . "\"";}?>
 		/>
-		<input type="number" name="buy_price_dow30" placeholder="Price"
-		<?php if (isset($_SESSION['buy_price_dow30'])) {echo "value=\"" . $_SESSION['buy_price_dow30'] . "\"";}?>
-		/>
 
-		<h3>Overseas</h3>
+		<h4>Overseas</h4>
 		<select name="buy_stock_overseas">
 			<option name="axisbank.ns"
 			<?php if (isset($_SESSION['buy_stock_overseas']) && $_SESSION['buy_stock_overseas'] == "AXISBANK.NS") echo "selected";
@@ -65,11 +63,9 @@ if (!isset($_SESSION['username'])) {
 			<?php if (isset($_SESSION['buy_stock_overseas']) && $_SESSION['buy_stock_overseas'] == "KOTAKBANK.NS") echo "selected";
 			?>>KOTAKBANK.NS</option>
 		</select>
+		&nbsp;
 		<input type="number" step="1" min="1" name="buy_shares_overseas" placeholder="Shares"
 		<?php if (isset($_SESSION['buy_shares_overseas'])) {echo "value=\"" . $_SESSION['buy_shares_overseas'] . "\"";}?>
-		/>
-		<input type="number" name="buy_price_overseas" placeholder="Price"
-		<?php if (isset($_SESSION['buy_price_overseas'])) {echo "value=\"" . $_SESSION['buy_price_overseas'] . "\"";}?>
 		/>
 
 		<h1>Sell</h1>
@@ -110,12 +106,9 @@ if (!isset($_SESSION['username'])) {
 		</optgroup>
 	</select>
 		<button type="submit" name="select">Select</button>
-		<br><br>
+		&nbsp;
 		<input type="number" step="1" min="1" name="sell_shares" placeholder="Shares"
 		<?php if (isset($_SESSION['sell_shares'])) {echo "value=\"" . $_SESSION['sell_shares'] . "\"";}?>
-		/>
-		<input type="number" name="sell_price" placeholder="Price"
-		<?php if (isset($_SESSION['sell_price'])) {echo "value=\"" . $_SESSION['sell_price'] . "\"";}?>
 		/>
 
 		<br>
@@ -137,6 +130,7 @@ if (!isset($_SESSION['username'])) {
 					<th>Select</th>
 					<th>Symbol</th>
 					<th>Shares</th>
+					<th>Price</th>
 					<th>Cost Basis</th>
 					<th>Category</th>
 				</tr>
@@ -148,6 +142,7 @@ if (!isset($_SESSION['username'])) {
 						<td><input type="radio" name="radio" value=<?php echo "radio" . ++ $count; ?> /></td>
 						<td><?php echo $row['symbol'] ?></td>
 						<td><?php echo $row['shares'] ?></td>
+						<td><?php echo $row['cost_basis'] / $row['shares'] ?></td>
 						<td><?php echo $row['cost_basis'] ?></td>
 						<td><?php echo $row['category'] ?></td>
 					</tr>
