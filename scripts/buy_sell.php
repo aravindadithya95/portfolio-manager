@@ -1,19 +1,21 @@
 <?php
 session_start();
+$username = $_SESSION['username'];
 
 $buy_stock_dow30 = $_SESSION['buy_stock_dow30'] = $_POST['buy_stock_dow30'];
 $buy_shares_dow30 = $_SESSION['buy_shares_dow30'] = $_POST['buy_shares_dow30'];
-$buy_price_dow30 = $_SESSION['buy_price_dow30'] = $_POST['buy_price_dow30'];
+$buy_price_dow30 = $_SESSION['buy_price_dow30'] = 0;
 
 $buy_stock_overseas = $_SESSION['buy_stock_overseas'] = $_POST['buy_stock_overseas'];
 $buy_shares_overseas = $_SESSION['buy_shares_overseas'] = $_POST['buy_shares_overseas'];
-$buy_price_overseas = $_SESSION['buy_price_overseas'] = $_POST['buy_price_overseas'];
+$buy_price_overseas = $_SESSION['buy_price_overseas'] = 0;
 
 $sell_stock = $_SESSION['sell_stock'] = $_POST['sell_stock'];
 $sell_shares = $_SESSION['sell_shares'] = $_POST['sell_shares'];
-$sell_price = $_SESSION['sell_price'] = $_POST['sell_price'];
+$sell_price = $_SESSION['sell_price'] = 0;
 
 $sell_category = "dow30";
+require 'database.php';
 
 $selected_shares = 0;
 $selected_cost_basis = 0;
@@ -22,7 +24,7 @@ if (isset($_POST['add'])) {
   $buy_overseas = false;
   $sell = false;
   // Check if user wants to sell stock
-  if ($_POST['sell_shares'] != "" AND $_POST['sell_price'] != "" AND isset($_POST['radio'])) {
+  if ($_POST['sell_shares'] != "" AND isset($_POST['radio'])) {
     $radio = $_POST['radio'];
     $sell = true;
     if ($sell_stock == "BHARTIARTL.NS" or $sell_stock == "TCS.NS" or $sell_stock == "KOTAKBANK.NS" or $sell_stock == "AXISBANK.NS")
@@ -37,24 +39,22 @@ if (isset($_POST['add'])) {
     }
     $selected_shares = $row['shares'];
     $selected_cost_basis = $row['cost_basis'];
+    $selected_stock_price = $selected_cost_basis / $selected_shares;
     if ($sell_shares > $selected_shares) {
       echo $selected_shares . " shares available";
     }
   }
 
   // Check if user wants to buy dow30 stock
-  if ($_POST['buy_shares_dow30'] != "" AND $_POST['buy_price_dow30'] != "") {
+  if ($_POST['buy_shares_dow30'] != "") {
     $buy_dow30 = true;
   }
 
   // Check if user wants to buy overseas stock
-  if ($_POST['buy_shares_overseas'] != "" AND $_POST['buy_price_overseas'] != "") {
+  if ($_POST['buy_shares_overseas'] != "") {
     $buy_overseas = true;
   }
 
-  require 'database.php';
-
-  $username = $_SESSION['username'];
   // Current portfolio value
   $query = "SELECT * FROM users WHERE username = '$username'";
   $result = mysqli_query($conn, $query);
@@ -81,6 +81,10 @@ if (isset($_POST['add'])) {
       $query = "SELECT sept_price FROM stocks WHERE symbol = '$buy_stock_dow30'";
       $result = mysqli_query($conn, $query);
       $buy_price_dow30 = mysqli_fetch_assoc($result)['sept_price'];
+    } else {
+      $stockname = $buy_stock_dow30;
+      require 'scraper.php';
+      $buy_price_dow30 = $current_price;
     }
     $cost_basis =  $buy_price_dow30 * $buy_shares_dow30;
 
@@ -95,6 +99,10 @@ if (isset($_POST['add'])) {
       $query = "SELECT sept_price FROM stocks WHERE symbol = '$buy_stock_overseas'";
       $result = mysqli_query($conn, $query);
       $buy_price_overseas = mysqli_fetch_assoc($result)['sept_price'];
+    } else {
+      $stockname = $buy_stock_overseas;
+      require 'scraper.php';
+      $buy_price_overseas = 50;//$current_price;
     }
     $cost_basis = $buy_price_overseas * $buy_shares_overseas;
 
@@ -102,6 +110,10 @@ if (isset($_POST['add'])) {
     $temp_cash -= $cost_basis;
   }
   if ($sell) {
+    $stockname = $sell_stock;
+    require 'scraper.php';
+    $sell_price = $current_price;
+
     $cost_basis = $sell_price * $sell_shares;
     if ($sell_category == "dow30") {
       $temp_dow30_value -= $cost_basis;
@@ -122,7 +134,7 @@ if (isset($_POST['add'])) {
     echo "Cash exceeding 10% of portfolio value";
     exit();
   }
-  if ($temp_overseas_value < 0.25 * $total_value OR $temp_overseas_value > 0.35 * $total_value) {
+  if ($temp_overseas_value < 0.28 * $total_value OR $temp_overseas_value > 0.32 * $total_value) {
     echo "70-30 imbalance";
     exit();
   }
@@ -132,7 +144,6 @@ if (isset($_POST['add'])) {
     mysqli_query($conn, $query);
     $query = "INSERT INTO transactions VALUES(\"Buy\", '$username', '$buy_stock_dow30', now(), '$buy_shares_dow30', '$buy_price_dow30', -'$buy_shares_dow30' * '$buy_price_dow30', 0)";
     mysqli_query($conn, $query);
-
   }
   if ($buy_overseas) {
     $query = "INSERT INTO user_stocks VALUES('$username', '$buy_stock_overseas', '$buy_shares_overseas', '$buy_shares_overseas' * '$buy_price_overseas', \"overseas\")";
@@ -150,7 +161,7 @@ if (isset($_POST['add'])) {
     $query = "INSERT INTO transactions VALUES(\"Sell\", '$username', '$sell_stock', now(), '$sell_shares', '$sell_price', -'$sell_shares' * '$sell_price', 1250)";
     mysqli_query($conn, $query);
   }
-  $query = "UPDATE users SET overseas_value = '$temp_dow30_value', cash = '$temp_cash' WHERE username = '$username'";
+  $query = "UPDATE users SET dow30_value = '$temp_dow30_value', overseas_value = '$temp_overseas_value', cash = '$temp_cash' WHERE username = '$username'";
   mysqli_query($conn, $query);
 
   unset($_SESSION['buy_stock']);
