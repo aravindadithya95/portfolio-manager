@@ -23,3 +23,4 @@ INSERT INTO stocks VALUES ("Kotak Mahindra Ltd.", "KOTAKBANK.NS", "50", "992.55"
 SELECT * FROM users;
 SELECT * FROM transactions;
 SELECT * FROM user_stocks;
+SELECT * FROM stocks;
