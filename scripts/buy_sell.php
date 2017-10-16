@@ -27,7 +27,7 @@ if (isset($_POST['add'])) {
   if ($_POST['sell_shares'] != "" AND isset($_POST['radio'])) {
     $radio = $_POST['radio'];
     $sell = true;
-    if ($sell_stock == "BHARTIARTL.NS" or $sell_stock == "TCS.NS" or $sell_stock == "KOTAKBANK.NS" or $sell_stock == "AXISBANK.NS")
+    if ($sell_stock == "BHARTIARTL.NS" or $sell_stock == "TCS.NS" or $sell_stock == "KOTAKBANK.NS" or $sell_stock == "TATAMOTORS.NS")
       $sell_category = "overseas";
 
     $count = 1;
@@ -91,28 +91,40 @@ if (isset($_POST['add'])) {
     $temp_dow30_value += $cost_basis;
     $temp_cash -= $cost_basis;
   }
+  $buy_overseas_foreign_price = 0;
   if ($buy_overseas) {
     $query = "SELECT * FROM transactions WHERE username = '$username' AND symbol = '$buy_stock_overseas'";
     $result = mysqli_query($conn, $query);
     if (mysqli_num_rows($result) == 0) {
       echo "Using September price";
-      $query = "SELECT sept_price FROM stocks WHERE symbol = '$buy_stock_overseas'";
+      $query = "SELECT sept_price, sept_price_overseas FROM stocks WHERE symbol = '$buy_stock_overseas'";
       $result = mysqli_query($conn, $query);
-      $buy_price_overseas = mysqli_fetch_assoc($result)['sept_price'];
+      $row = mysqli_fetch_assoc($result);
+      $buy_price_overseas = $row['sept_price'];
+      $buy_overseas_foreign_price = $row['sept_price_overseas'];
     } else {
       $stockname = $buy_stock_overseas;
       require 'scraper.php';
-      $buy_price_overseas = 50;//$current_price;
+      require 'currency.php';
+      $buy_price_overseas = $current_price / $exc;
+      $buy_overseas_foreign_price = $current_price;
     }
     $cost_basis = $buy_price_overseas * $buy_shares_overseas;
 
     $temp_overseas_value += $cost_basis;
     $temp_cash -= $cost_basis;
   }
+  $sell_foreign_value = 0;
   if ($sell) {
     $stockname = $sell_stock;
     require 'scraper.php';
     $sell_price = $current_price;
+
+    if ($sell_category == "overseas") {
+        $sell_foreign_value = $sell_price;
+        require 'currency.php';
+        $sell_price /= $exc;
+    }
 
     $cost_basis = $sell_price * $sell_shares;
     if ($sell_category == "dow30") {
@@ -142,13 +154,13 @@ if (isset($_POST['add'])) {
   if ($buy_dow30) {
     $query = "INSERT INTO user_stocks VALUES('$username', '$buy_stock_dow30', '$buy_shares_dow30', '$buy_shares_dow30' * '$buy_price_dow30', \"dow30\")";
     mysqli_query($conn, $query);
-    $query = "INSERT INTO transactions VALUES(\"Buy\", '$username', '$buy_stock_dow30', now(), '$buy_shares_dow30', '$buy_price_dow30', -'$buy_shares_dow30' * '$buy_price_dow30', 0)";
+    $query = "INSERT INTO transactions VALUES(\"Buy\", '$username', '$buy_stock_dow30', now(), '$buy_shares_dow30', '$buy_price_dow30', 0, -'$buy_shares_dow30' * '$buy_price_dow30')";
     mysqli_query($conn, $query);
   }
   if ($buy_overseas) {
     $query = "INSERT INTO user_stocks VALUES('$username', '$buy_stock_overseas', '$buy_shares_overseas', '$buy_shares_overseas' * '$buy_price_overseas', \"overseas\")";
     mysqli_query($conn, $query);
-    $query = "INSERT INTO transactions VALUES(\"Buy\", '$username', '$buy_stock_overseas', now(), '$buy_shares_overseas', '$buy_price_overseas', -'$buy_shares_overseas' * '$buy_price_overseas', 1250)";
+    $query = "INSERT INTO transactions VALUES(\"Buy\", '$username', '$buy_stock_overseas', now(), '$buy_shares_overseas', '$buy_price_overseas', $buy_overseas_foreign_price, -'$buy_shares_overseas' * '$buy_price_overseas')";
     mysqli_query($conn, $query);
   }
   if ($sell) {
@@ -158,7 +170,7 @@ if (isset($_POST['add'])) {
       $query = "DELETE user_stocks WHERE username = '$username' AND symbol = '$sell_stock'";
     }
     mysqli_query($conn, $query);
-    $query = "INSERT INTO transactions VALUES(\"Sell\", '$username', '$sell_stock', now(), '$sell_shares', '$sell_price', -'$sell_shares' * '$sell_price', 1250)";
+    $query = "INSERT INTO transactions VALUES(\"Sell\", '$username', '$sell_stock', now(), '$sell_shares', '$sell_price', $sell_foreign_value, -'$sell_shares' * '$sell_price')";
     mysqli_query($conn, $query);
   }
   $query = "UPDATE users SET dow30_value = '$temp_dow30_value', overseas_value = '$temp_overseas_value', cash = '$temp_cash' WHERE username = '$username'";
