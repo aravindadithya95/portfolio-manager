@@ -1,10 +1,12 @@
 <?php
-session_start();
+//session_start();
 #$stockname = "COALINDIA.NS";
 #$stockname = "AXISBANK.NS";
 #$stockname = "GOOG";
 #$stockname = "TCS.NS";
-$stockname = $_SESSION['stockname'];
+//$stockname = $_SESSION['stockname'];
+
+// Enter symbol into a username variable before requiring scraper.php
 $url = 'https://finance.yahoo.com/quote/' . $stockname;
 
 $data = file_get_contents($url);
@@ -27,7 +29,9 @@ echo "Price:  ". $current;
 echo "<br>";
 echo "Gain (Gain %):  ". $sign->item(0)->nodeValue . $change->item(0)->nodeValue;
 
-$_SESSION['price'] = $current;
+// Access values directly using variable names
+
+//$_SESSION['price'] = $current;
 #echo $nodes;
 
 #$items = $dom -> getElementsByTagName('h1');
