@@ -1,3 +1,7 @@
+<html>
+<head>
+</head>
+<body>
 <?php
 session_start();
 require 'scripts/database.php';
@@ -9,8 +13,7 @@ if (!isset($_SESSION['username'])) {
 */
 
 $username = "a";
-
-$query = "SELECT * FROM stocks where symbol = 'AAPL'";
+$query = "SELECT * FROM user_stocks, stocks WHERE username = '$username' and user_stocks.symbol = stocks.symbol";
 $result = mysqli_query($conn, $query);
 
 ?>
@@ -34,39 +37,29 @@ $result = mysqli_query($conn, $query);
       <th>Gain %</th>
       <th>Expected Return</th>
     </tr>
-		<?php
-		while ($row = mysqli_fetch_assoc($result)) {
+
+<?php
+		while ($record = mysqli_fetch_assoc($result)) {
 		?>
     <tr>
 			<td>
 			<?php
-			echo row['stock_name'];
+			$stockname =  "";
+      $stockname = $record['stock_name'];
+      echo $stockname;
 			?>
 		</td>
 		<td>
 			<?php
-			$stockname = row['symbol'];
-			echo $stockname;
-			echo row['symbol'];
+      $symbol = "";
+      $symbol = $record['symbol'];
+      echo $symbol;
 			?>
 		</td>
 		<td>
 			<?php
-			$url = 'https://finance.yahoo.com/quote/' . $stockname;
-			echo $url;
-
-			$data = file_get_contents($url);
-			$dom = new DOMDocument();
-			libxml_use_internal_errors(true);
-			$dom->loadHTML($data);
-			libxml_clear_errors();
-			$dom->saveHTML();
-
-			$xpath = new DOMXPath($dom);
-			$l_price = $xpath->query('//*[@id="quote-header-info"]/div[3]/div[1]/div/span[1]/text()');
-			$current = $l_price->item(0)->nodeValue;
-
-			echo $current;
+      require 'scripts/scraper.php';
+      
 			?>
 			</td>
     </tr>
@@ -74,5 +67,8 @@ $result = mysqli_query($conn, $query);
 		}
 		?>
   </table>
+  <?php
+  mysqli_close($conn);
+  ?>
 </body>
 </html>
