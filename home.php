@@ -169,7 +169,7 @@ if (!isset($_SESSION['username'])) {
 			<option value="deposit">Deposit</option>
 			<option value="withdraw">Withdraw</option>
 		</select>
-		<input type="text" name="amount" placeholder="Amount"/>
+		<input type="number" min="1" name="amount" placeholder="Amount"/>
 		<br><br>
 		<button type="submit" name="add">Add to Portfolio</button>
 	</form>
