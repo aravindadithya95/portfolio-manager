@@ -68,17 +68,25 @@ $p_mkt_value = 0;
 			<?php
       $stockname = $symbol;
       require 'scripts/scraper.php';
-      echo $current_price;
+      $category = "dow30";
+      $current_foreign_price = (int)$current_price;
+      if ($symbol == "TATAMOTORS.NS" || $symbol == "TCS.NS" || $symbol == "BHARTIARTL.NS" || $symbol == "KOTAKBANK.NS") {
+        $category = "overseas";
+        require 'scripts/currency.php';
+        $current_price /= $exc;
+      }
+      echo round($current_price, 2);
 			?>
 			</td>
       <td>
         <?php
+        if ($category == "overseas")  echo $current_foreign_price;
         ?>
       </td>
       <td>
         <?php
         $stockname = $symbol;
-        require 'scripts/scraper.php';
+        //require 'scripts/scraper.php';
         echo $gain_and_percent;
         ?>
       </td>
@@ -101,19 +109,19 @@ $p_mkt_value = 0;
         <?php
         $market_value = $shares * $current_price;
         $p_mkt_value = $p_mkt_value + $market_value;
-        echo $market_value;
+        echo round($market_value, 2);
         ?>
       </td>
       <td>
         <?php
         $gain = $market_value - $cost_basis;
-        echo $gain;
+        echo round($gain, 2);
         ?>
       </td>
       <td>
         <?php
         $gain_cent = ($gain/$cost_basis)*100;
-        echo $gain_cent;
+        echo round($gain_cent, 2);
         ?>
       </td>
       <td>
@@ -148,7 +156,7 @@ $p_mkt_value = 0;
       </td>
       <td>
         <?php
-        echo $p_mkt_value;
+        echo round($p_mkt_value, 2);
         ?>
       </td>
 
