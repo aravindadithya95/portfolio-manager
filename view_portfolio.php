@@ -29,10 +29,21 @@ $p_mkt_value = 0;
 ?>
   <h3>View Portfolio</h3>
 
-  <button type="button">View Transaction</button>
-  <button type="button">Export as CSV</button>
-  <button type="button">Delete Portfolio</button>
-  <button type="button">Logout</button>
+  <form action="home.php" style="display: inline-block;">
+		<button type="submit">Buy/Sell</button>
+	</form>
+  <form action="view_transaction.php" style="display: inline-block;">
+		<button type="submit">View Transactions</button>
+	</form>
+  <form action="" style="display: inline-block;">
+		<button type="submit">Export as CSV</button>
+	</form>
+  <form action="" style="display: inline-block;">
+		<button type="submit">Delete Portfolio</button>
+	</form>
+  <form action="scripts/logout.php" style="display: inline-block;">
+		<button type="submit">Logout</button>
+	</form>
 
   <table>
     <tr>

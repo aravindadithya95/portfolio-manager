@@ -13,8 +13,11 @@
   ?>
   <h3>View Transaction</h3>
 
-  <button type="button">Back to View Portfolio</button>
-  <button type="button">Logout</button>
+  <form action="view_portfolio.php" style="display: inline-block;">
+		<button type="submit">Back to View Portfolio</button>
+	</form><form action="scripts/logout.php" style="display: inline-block;">
+		<button type="submit">Logout</button>
+	</form>
 
   <table>
     <tr>
