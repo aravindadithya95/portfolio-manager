@@ -25,6 +25,7 @@ if ($_POST['type'] == "deposit") {
         $result = mysqli_query($conn, $query);
     } else {
         echo "Too much cash";
+        exit();
     }
 } else {
   if ($cash >= $amount) {
@@ -34,6 +35,7 @@ if ($_POST['type'] == "deposit") {
     $result = mysqli_query($conn, $query);
 } else {
     echo "Not enough funds";
+    exit();
 }
 }
 

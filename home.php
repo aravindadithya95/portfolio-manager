@@ -13,9 +13,17 @@ if (!isset($_SESSION['username'])) {
 </head>
 <body>
 <center>
+<form action="view_portfolio.php" style="display: inline-block;">
+	<button type="submit">View Portfolio</button>
+</form>
+<form action="view_transaction.php" style="display: inline-block;">
+	<button type="submit">View Transactions</button>
+</form>
+<span style="float:right">
 	<form action="scripts/logout.php">
 		<button type="submit" name="logout">Logout</button>
 	</form>
+</span>
 
 	<br>
 
