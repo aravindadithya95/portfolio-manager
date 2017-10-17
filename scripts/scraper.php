@@ -25,7 +25,10 @@ $change = $xpath->query('//*[@id="quote-header-info"]/div[3]/div[1]/div/span[2]/
 #echo "Stockname:  " . $stockname;
 #echo "<br>";
 $current_price = $price->item(0)->nodeValue;
-$gain_and_percent = $sign->item(0)->nodeValue . $change->item(0)->nodeValue;
+$gain_and_percent = $sign->item(0)->nodeValue;// . $change->item(0)->nodeValue;
+if (isset($change->item(0)->nodeValue)) {
+    $gain_and_percent = (string)$gain_and_percent . $change->item(0)->nodeValue;
+}
 #echo $current_price;
 #echo "<br>";
 #echo "Gain (Gain %):  ". $gain_and_percent;
