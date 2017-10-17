@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>View Portfolio</title>
 </head>
 <body>
 <?php
@@ -23,12 +24,6 @@ $p_cost_basis = 0;
 $p_mkt_value = 0;
 
 ?>
-<html>
-<head>
-  <title>View Portfolio</title>
-
-</head>
-<body>
   <h3>View Portfolio</h3>
 
   <button type="button">View Transaction</button>
