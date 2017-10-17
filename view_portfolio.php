@@ -14,11 +14,14 @@ if (!isset($_SESSION['username'])) {
 */
 
 $username = "a";
-$query = "SELECT * FROM user_stocks, stocks WHERE username = '$username' and user_stocks.symbol = stocks.symbol";
+$query = "SELECT * FROM user_stocks, stocks WHERE username = '$username' and user_stocks.symbol = stocks.symbol group by user_stocks.symbol";
 $result = mysqli_query($conn, $query);
 
-$query_cb = "SELECT sum(cost_basis) from user_stocks where username = '$username' group by symbol";
+$query_cb = "SELECT sum(cost_basis) FROM user_stocks WHERE username = '$username' GROUP BY symbol";
 $result_cb = mysqli_query($conn, $query_cb);
+
+$query_cash = "SELECT cash FROM users where username = '$username'";
+$result_cash = mysqli_query($conn, $query_cash);
 
 $p_cost_basis = 0;
 $p_mkt_value = 0;
@@ -136,6 +139,36 @@ $p_mkt_value = 0;
     <tr>
       <td>
         <?php
+        echo "Cash";
+        ?>
+      </td>
+      <td>
+      </td>
+      <td>
+        <?php
+        $c = mysqli_fetch_assoc($result_cash);
+        $cash = $c['cash'];
+        echo $cash;
+        ?>
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td>
+        <?php
+        $p_mkt_value = $p_mkt_value + $cash;
+        echo $cash;
+        ?>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <?php
         echo "Portfolio value";
         ?>
       </td>
@@ -159,7 +192,6 @@ $p_mkt_value = 0;
         echo round($p_mkt_value, 2);
         ?>
       </td>
-
     </tr>
   </table>
   <?php
