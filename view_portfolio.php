@@ -30,6 +30,12 @@ $p_mkt_value = 0;
 </head>
 <body>
   <h3>View Portfolio</h3>
+
+  <button type="button">View Transaction</button>
+  <button type="button">Export as CSV</button>
+  <button type="button">Delete Portfolio</button>
+  <button type="button">Logout</button>
+
   <table>
     <tr>
       <th>Name</th>
@@ -156,5 +162,8 @@ $p_mkt_value = 0;
   <?php
   mysqli_close($conn);
   ?>
+  <button type="button">Deposit/Withdraw Cash</button>
+  <button type="button">Buy/Sell Stock</button>
+
 </body>
 </html>
