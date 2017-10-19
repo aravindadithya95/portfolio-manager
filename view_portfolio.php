@@ -21,11 +21,15 @@ $result = mysqli_query($conn, $query);
 $query_cb = "SELECT sum(cost_basis) FROM user_stocks WHERE username = '$username' GROUP BY symbol";
 $result_cb = mysqli_query($conn, $query_cb);
 
+$query_sh = "SELECT sum(shares) FROM user_stocks WHERE username = '$username' GROUP BY symbol";
+$result_sh = mysqli_query($conn, $query_sh);
+
 $query_cash = "SELECT cash FROM users where username = '$username'";
 $result_cash = mysqli_query($conn, $query_cash);
 
 $p_cost_basis = 0;
 $p_mkt_value = 0;
+$s_shares = 0;
 
 ?>
   <h3>View Portfolio</h3>
@@ -107,8 +111,8 @@ $p_mkt_value = 0;
       </td>
       <td>
         <?php
-        $shares = "";
-        $shares = $record['shares'];
+        $sh = mysqli_fetch_assoc($result_sh);
+        $shares = $sh['sum(shares)'];
         echo $shares;
         ?>
       </td>
