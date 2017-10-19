@@ -52,10 +52,17 @@ if (!isset($_SESSION['username'])) {
 			?>>PFE</option>
 		</select>
 		&nbsp;
+			<button type="submit" name="view_price_domestic">View Price</button>
+		&nbsp;
 		<input type="number" step="1" min="1" name="buy_shares_dow30" placeholder="Shares"
 		<?php if (isset($_SESSION['buy_shares_dow30'])) {echo "value=\"" . $_SESSION['buy_shares_dow30'] . "\"";}?>
 		/>
-
+		<?php
+		echo "<br><br>";
+		if (isset($_SESSION['view_price_domestic']) AND $_SESSION['view_price_domestic']) {
+			echo $_SESSION['buy_stock_dow30'] . ": $" . $_SESSION['price_domestic'];
+		}
+		?>
 		<h4>Overseas</h4>
 		<select name="buy_stock_overseas">
 			<option name="tatamotors.ns"
@@ -72,9 +79,17 @@ if (!isset($_SESSION['username'])) {
 			?>>KOTAKBANK.NS</option>
 		</select>
 		&nbsp;
+		<button type="submit" name="view_price_overseas">View Price</button>
+	&nbsp;
 		<input type="number" step="1" min="1" name="buy_shares_overseas" placeholder="Shares"
 		<?php if (isset($_SESSION['buy_shares_overseas'])) {echo "value=\"" . $_SESSION['buy_shares_overseas'] . "\"";}?>
 		/>
+		<?php
+		echo "<br><br>";
+		if (isset($_SESSION['view_price_overseas']) AND $_SESSION['view_price_overseas']) {
+			echo $_SESSION['buy_stock_overseas'] . ": $" . $_SESSION['price_overseas'];
+		}
+		?>
 
 		<h1>Sell</h1>
 		<select name="sell_stock">
@@ -166,14 +181,9 @@ if (!isset($_SESSION['username'])) {
 
 		<br>
 
-		<button type="submit" name="add">Add to Portfolio</button>
-	</form>
-
-	<br><br>
 	<h1>Deposit/Withdraw Cash</h1>
 
-	<form action="scripts/deposit_withdraw.php" method="post">
-		<select name="type">
+		<select name="cash_type">
 			<option value="deposit">Deposit</option>
 			<option value="withdraw">Withdraw</option>
 		</select>

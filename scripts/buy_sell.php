@@ -55,6 +55,17 @@ if (isset($_POST['add'])) {
     $buy_overseas = true;
   }
 
+  $cash_transaction = true;
+  $cash_type = "deposit";
+  $amount = 0;
+  // Check if user wants to deposit/withdraw cash
+  if ($_POST['cash_type'] != "") {
+      if ($_POST['cash_type'] == "withdraw") {
+        $cash_type = "withdraw";
+      }
+      $amount = $_POST['amount'];
+  }
+
   // Current portfolio value
   $query = "SELECT * FROM users WHERE username = '$username'";
   $result = mysqli_query($conn, $query);
@@ -134,6 +145,15 @@ if (isset($_POST['add'])) {
     }
     $temp_cash += $cost_basis;
   }
+
+  if ($cash_transaction) {
+      if ($cash_type == "deposit") {
+          $temp_cash += $amount;
+      } else {
+          $temp_cash -= $amount;
+      }
+  }
+
   echo "<br>" . $temp_cash . "<br>";
   echo $temp_dow30_value . "<br>";
   echo $temp_overseas_value . "<br>";
@@ -147,7 +167,12 @@ if (isset($_POST['add'])) {
     exit();
   }
   if ($temp_overseas_value < 0.28 * $total_value OR $temp_overseas_value > 0.32 * $total_value) {
-    echo "70-30 imbalance";
+    echo "70-30 imbalance" . "<br>";
+    if ($temp_overseas_value > 0.32 * $total_value) {
+        echo "Buy more domestic stock in value or less overseas stock in value";
+    } else {
+        echo "Buy more overseas stock in value or less domestic stock in value";
+    }
     exit();
   }
 
@@ -173,6 +198,15 @@ if (isset($_POST['add'])) {
     $query = "INSERT INTO transactions VALUES(\"Sell\", '$username', '$sell_stock', now(), '$sell_shares', '$sell_price', $sell_foreign_value, -'$sell_shares' * '$sell_price')";
     mysqli_query($conn, $query);
   }
+  if ($cash_transaction) {
+      if ($cash_type == "deposit") {
+          $query = "INSERT INTO transactions VALUES(\"Deposit Cash\", '$username', \"\", now(), 0, 0, 0, '$amount')";
+          $result = mysqli_query($conn, $query);
+      } else {
+          $query = "INSERT INTO transactions VALUES(\"Withdraw Cash\", '$username', \"\", now(), 0, 0, 0, -'$amount')";
+          $result = mysqli_query($conn, $query);
+      }
+  }
   $query = "UPDATE users SET dow30_value = '$temp_dow30_value', overseas_value = '$temp_overseas_value', cash = '$temp_cash' WHERE username = '$username'";
   mysqli_query($conn, $query);
 
@@ -192,6 +226,43 @@ if (isset($_POST['select'])) {
 
   header("location: ../home.php");
   exit();
+}
+if (isset($_POST['view_price_domestic'])) {
+    $_SESSION['view_price_domestic'] = true;
+    $current_price = 0;
+    $query = "SELECT * FROM transactions WHERE username = '$username' AND symbol = '$buy_stock_dow30'";
+    $result = mysqli_query($conn, $query);
+    if (mysqli_num_rows($result) > 0) {
+        $stockname = $buy_stock_dow30;
+        require 'scraper.php';
+        $_SESSION['price_domestic'] = $current_price;
+    } else {
+        $query = "SELECT sept_price FROM stocks WHERE symbol = '$buy_stock_dow30'";
+        $result = mysqli_query($conn, $query);
+        $_SESSION['price_domestic'] = mysqli_fetch_assoc($result)['sept_price'];
+    }
+
+    header("location: ../home.php");
+    exit();
+}
+if (isset($_POST['view_price_overseas'])) {
+    $_SESSION['view_price_overseas'] = true;
+    $current_price = 0;
+    $query = "SELECT * FROM transactions WHERE username = '$username' AND symbol = '$buy_stock_overseas'";
+    $result = mysqli_query($conn, $query);
+    if (mysqli_num_rows($result) > 0) {
+        $stockname = $buy_stock_overseas;
+        require 'scraper.php';
+        require 'currency.php';
+        $_SESSION['price_overseas'] = round($current_price / $exc, 2);
+    } else {
+        $query = "SELECT sept_price FROM stocks WHERE symbol = '$buy_stock_overseas'";
+        $result = mysqli_query($conn, $query);
+        $_SESSION['price_overseas'] = mysqli_fetch_assoc($result)['sept_price'];
+    }
+
+    header("location: ../home.php");
+    exit();
 }
 
 /*
