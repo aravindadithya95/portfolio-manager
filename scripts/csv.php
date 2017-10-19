@@ -14,6 +14,9 @@ $result = mysqli_query($conn, $query);
 $query_cb = "SELECT sum(cost_basis) FROM user_stocks WHERE username = '$username' GROUP BY symbol";
 $result_cb = mysqli_query($conn, $query_cb);
 
+$query_sh = "SELECT sum(shares) FROM user_stocks WHERE username = '$username' GROUP BY symbol";
+$result_sh = mysqli_query($conn, $query_sh);
+
 $query_cash = "SELECT cash FROM users where username = '$username'";
 $result_cash = mysqli_query($conn, $query_cash);
 
@@ -43,8 +46,8 @@ if ($category == "overseas")
 {
 $fprice = $current_foreign_price;
 }
-$shares = "";
-$shares = $record['shares'];
+$sh = mysqli_fetch_assoc($result_sh);
+$shares = $sh['sum(shares)'];
 $cb = mysqli_fetch_assoc($result_cb);
 $cost_basis = $cb['sum(cost_basis)'];
 //$p_cost_basis = $p_cost_basis + $cost_basis;
