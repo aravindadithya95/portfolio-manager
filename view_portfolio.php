@@ -146,6 +146,9 @@ $s_shares = 0;
       <td>
         <?php
         //Calculate rate from the FV(Real time value) = (Sept 1st Value) + (1 + r)^0.123
+        $_SESSION['return_symbol'] = $stockname;
+        $_SESSION['return_shares'] = $shares;
+        require 'scripts/return.php';
         ?>
       </td>
     </tr>
