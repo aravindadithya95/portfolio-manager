@@ -31,7 +31,7 @@ if ($condition) {
     $result = mysqli_query($conn, $query);
     $_SESSION['display_alert'] = "Liquidation successful";
 } else {
-    $_SESSION['display_alert'] = $_SESSION['display_alert'] + ". You need to validate portfolio to liquidate cash";
+    $_SESSION['display_alert'] = $_SESSION['display_alert'] . ". You need to validate portfolio to liquidate cash";
 }
 
 header("location: ../home.php");

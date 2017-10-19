@@ -40,7 +40,7 @@ $s_shares = 0;
   <form action="view_transaction.php" style="display: inline-block;">
 		<button type="submit">View Transactions</button>
 	</form>
-  <form action="" style="display: inline-block;">
+  <form action="scripts/csv.php" style="display: inline-block;">
 		<button type="submit">Export as CSV</button>
 	</form>
   <form action="delete_portfolio.php" style="display: inline-block;">
