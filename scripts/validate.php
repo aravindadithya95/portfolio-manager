@@ -17,7 +17,7 @@ $overseas_percent = round($overseas_value / ($dow30_value + $overseas_value) * 1
 $cash_percent = round($cash / ($dow30_value + $overseas_value) * 100);
 
 $condition = true;
-if (dow30_percent < 67 or dow30_percent > 73 or cash_percent > 10) {
+if ($dow30_percent < 67 or $dow30_percent > 73 or $cash_percent > 10) {
     $condition = false; 
 }
 

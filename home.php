@@ -22,7 +22,7 @@ if (!isset($_SESSION['username'])) {
 <form action="scripts/validate.php" style="display: inline-block;">
 	<button type="submit">Validate</button>
 </form>
-<form action="scripts/liquidate.php" style="display: inline-block;">
+<form action="liquidate_portfolio.php" style="display: inline-block;">
 	<button type="submit">Liquidate</button>
 </form>
 <span style="float:right">

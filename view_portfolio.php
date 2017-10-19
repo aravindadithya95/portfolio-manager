@@ -31,7 +31,7 @@ $p_mkt_value = 0;
   <h3>View Portfolio</h3>
 
   <form action="home.php" style="display: inline-block;">
-		<button type="submit">Buy/Sell</button>
+		<button type="submit">Buy | Sell | Deposit | Withdraw</button>
 	</form>
   <form action="view_transaction.php" style="display: inline-block;">
 		<button type="submit">View Transactions</button>

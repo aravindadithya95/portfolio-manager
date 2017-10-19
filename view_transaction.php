@@ -14,9 +14,13 @@
   ?>
   <h3>View Transaction</h3>
 
+  <form action="home.php" style="display: inline-block;">
+		<button type="submit">Buy | Sell | Deposit | Withdraw</button>
+	</form>
   <form action="view_portfolio.php" style="display: inline-block;">
-		<button type="submit">Back to View Portfolio</button>
-	</form><form action="scripts/logout.php" style="display: inline-block;">
+		<button type="submit">View Portfolio</button>
+	</form>
+  <form action="scripts/logout.php" style="display: inline-block;">
 		<button type="submit">Logout</button>
 	</form>
 
