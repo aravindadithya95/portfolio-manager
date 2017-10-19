@@ -27,6 +27,9 @@ $result_sh = mysqli_query($conn, $query_sh);
 $query_cash = "SELECT cash FROM users where username = '$username'";
 $result_cash = mysqli_query($conn, $query_cash);
 
+#$query_exp = "SELECT sept_price FROM stocks WHERE symbol = '$symbol'";
+#$result_exp = mysqli_query($conn, $query_exp);
+
 $p_cost_basis = 0;
 $p_mkt_value = 0;
 $s_shares = 0;
@@ -146,9 +149,15 @@ $s_shares = 0;
       <td>
         <?php
         //Calculate rate from the FV(Real time value) = (Sept 1st Value) + (1 + r)^0.123
-        $_SESSION['return_symbol'] = $stockname;
-        $_SESSION['return_shares'] = $shares;
-        require 'scripts/return.php';
+        $query_exp = "SELECT sept_price FROM stocks WHERE symbol = '$symbol'";
+        $result_exp = mysqli_query($conn, $query_exp);
+        $expr = mysqli_fetch_assoc($result_exp);
+        $sept_price = $expr['sept_price'];
+        $fraction=$current_price/$sept_price;
+        $rate=pow(($fraction), 48/365)-1;
+        $futureValue=$current_price*(pow((1+$rate),30/365));
+        $return=$shares*$futureValue;
+        echo round($return, 2);
         ?>
       </td>
     </tr>
@@ -216,8 +225,6 @@ $s_shares = 0;
   <?php
   mysqli_close($conn);
   ?>
-  <button type="button">Deposit/Withdraw Cash</button>
-  <button type="button">Buy/Sell Stock</button>
 </center>
 </body>
 </html>
