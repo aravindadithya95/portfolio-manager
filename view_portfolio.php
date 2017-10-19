@@ -3,6 +3,7 @@
     <title>View Portfolio</title>
 </head>
 <body>
+<center>
 <?php
 session_start();
 require 'scripts/database.php';
@@ -13,7 +14,7 @@ if (!isset($_SESSION['username'])) {
 }
 */
 
-$username = "a";
+$username = $_SESSION['username'];
 $query = "SELECT * FROM user_stocks, stocks WHERE username = '$username' and user_stocks.symbol = stocks.symbol group by user_stocks.symbol";
 $result = mysqli_query($conn, $query);
 
@@ -38,7 +39,7 @@ $p_mkt_value = 0;
   <form action="" style="display: inline-block;">
 		<button type="submit">Export as CSV</button>
 	</form>
-  <form action="" style="display: inline-block;">
+  <form action="delete_portfolio.php" style="display: inline-block;">
 		<button type="submit">Delete Portfolio</button>
 	</form>
   <form action="scripts/logout.php" style="display: inline-block;">
@@ -210,6 +211,6 @@ $p_mkt_value = 0;
   ?>
   <button type="button">Deposit/Withdraw Cash</button>
   <button type="button">Buy/Sell Stock</button>
-
+</center>
 </body>
 </html>

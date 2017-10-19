@@ -2,11 +2,12 @@
 <head>
 </head>
 <body>
+<center>
   <?php
   session_start();
   require 'scripts/database.php';
 
-  $username = "a";
+  $username = $_SESSION['username'];
   $query = "SELECT * from transactions where username = '$username'";
   $result = mysqli_query($conn, $query);
 
@@ -83,5 +84,6 @@
   }
   ?>
 </table>
+</center>
 </body>
 </html>

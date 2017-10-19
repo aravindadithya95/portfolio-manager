@@ -19,6 +19,12 @@ if (!isset($_SESSION['username'])) {
 <form action="view_transaction.php" style="display: inline-block;">
 	<button type="submit">View Transactions</button>
 </form>
+<form action="scripts/validate.php" style="display: inline-block;">
+	<button type="submit">Validate</button>
+</form>
+<form action="scripts/liquidate.php" style="display: inline-block;">
+	<button type="submit">Liquidate</button>
+</form>
 <span style="float:right">
 	<form action="scripts/logout.php">
 		<button type="submit" name="logout">Logout</button>
@@ -80,7 +86,7 @@ if (!isset($_SESSION['username'])) {
 		</select>
 		&nbsp;
 		<button type="submit" name="view_price_overseas">View Price</button>
-	&nbsp;
+		&nbsp;
 		<input type="number" step="1" min="1" name="buy_shares_overseas" placeholder="Shares"
 		<?php if (isset($_SESSION['buy_shares_overseas'])) {echo "value=\"" . $_SESSION['buy_shares_overseas'] . "\"";}?>
 		/>
@@ -187,10 +193,19 @@ if (!isset($_SESSION['username'])) {
 			<option value="deposit">Deposit</option>
 			<option value="withdraw">Withdraw</option>
 		</select>
-		<input type="number" min="1" name="amount" placeholder="Amount"/>
+		&nbsp;
+		<input type="number" min="1" name="amount" placeholder="Amount"
+		<?php if (isset($_SESSION['amount'])) {echo "value=\"" . $_SESSION['amount'] . "\"";}?>
+		/>
 		<br><br>
 		<button type="submit" name="add">Add to Portfolio</button>
 	</form>
+	<?php
+	if (isset($_SESSION['display_alert'])) {
+		echo "<script>alert('" . $_SESSION['display_alert'] . "');</script>";
+		unset($_SESSION['display_alert']);
+	}
+	?>
 </center>
 </body>
 </html>
