@@ -29,6 +29,7 @@ $gain_and_percent = $sign->item(0)->nodeValue;// . $change->item(0)->nodeValue;
 if (isset($change->item(0)->nodeValue)) {
     $gain_and_percent = (string)$gain_and_percent . $change->item(0)->nodeValue;
 }
+$current_price = str_replace(",", "", $current_price);
 #echo $current_price;
 #echo "<br>";
 #echo "Gain (Gain %):  ". $gain_and_percent;
