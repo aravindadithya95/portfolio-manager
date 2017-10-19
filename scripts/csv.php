@@ -56,8 +56,17 @@ $market_value = $shares * $current_price;
 $mkt_val = round($market_value, 2);
 $gain = $market_value - $cost_basis;
 $gain_cent = ($gain/$cost_basis)*100;
+$query_exp = "SELECT sept_price FROM stocks WHERE symbol = '$symbol'";
+$result_exp = mysqli_query($conn, $query_exp);
+$expr = mysqli_fetch_assoc($result_exp);
+$sept_price = $expr['sept_price'];
+$fraction=$current_price/$sept_price;
+$rate=pow(($fraction), 48/365)-1;
+$futureValue=$current_price*(pow((1+$rate),30/365));
+$return=$shares*$futureValue;
+$return = round($return, 2);
 
-fputcsv($output, array($stockname,$symbol,$finalprice,$fprice,$gain_and_percent,$shares,$cost_basis,$mkt_val,$gain,$gain_cent));
+fputcsv($output, array($stockname,$symbol,$finalprice,$fprice,$gain_and_percent,$shares,$cost_basis,$mkt_val,$gain,$gain_cent, $return));
 }
 fclose($output);
 
