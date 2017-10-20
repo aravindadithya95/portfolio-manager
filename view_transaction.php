@@ -1,5 +1,13 @@
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .navbar{
+        margin-bottom:0;
+        border-radius:0;
+      }
+    </style>
 </head>
 <body>
 <center>
@@ -24,7 +32,8 @@
 		<button type="submit">Logout</button>
 	</form>
 
-  <table>
+  <div class="container">
+  <table class="table table-striped">
     <tr>
     <th>Type</th>
     <th>Symbol</th>
@@ -88,6 +97,7 @@
   }
   ?>
 </table>
+</div>
 </center>
 </body>
 </html>
