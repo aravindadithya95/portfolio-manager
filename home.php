@@ -10,34 +10,63 @@ if (!isset($_SESSION['username'])) {
 <html>
 <head>
 	<title>Portfolio | Home</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .navbar{
+        margin-bottom:0;
+        border-radius:0;
+      }
+    </style>
 </head>
 <body>
-<center>
-<form action="view_portfolio.php" style="display: inline-block;">
-	<button type="submit">View Portfolio</button>
-</form>
-<form action="view_transaction.php" style="display: inline-block;">
-	<button type="submit">View Transactions</button>
-</form>
-<form action="scripts/validate.php" style="display: inline-block;">
-	<button type="submit">Validate</button>
-</form>
-<form action="liquidate_portfolio.php" style="display: inline-block;">
-	<button type="submit">Liquidate</button>
-</form>
 <span style="float:right">
 	<form action="scripts/logout.php">
-		<button type="submit" name="logout">Logout</button>
+	
+		<button type="submit" name="logout" class="btn btn-default">Logout</button>
+		
 	</form>
 </span>
+<center>
+
+<h1>     Portfolio Transactions</h1>
+
+<br>
+
+<div class="container">
+	<div class="form-inline">
+<form action="view_portfolio.php" style="display: inline-block;">	
+		<button type="submit" class="btn btn-default">View Portfolio</button>	
+</form>
+<form action="view_transaction.php" style="display: inline-block;">
+
+	<button type="submit" class="btn btn-default">View Transactions</button>
+
+</form>
+<form action="scripts/validate.php" style="display: inline-block;">
+
+	<button type="submit" class="btn btn-default">Validate</button>
+
+</form>
+<form action="liquidate_portfolio.php" style="display: inline-block;">
+
+	<button type="submit" class="btn btn-default">Liquidate</button>
+	
+</form>
+</div>
+</div>
+
 
 	<br>
 
 	<form action="scripts/buy_sell.php" method="post">
-		<h1>Buy</h1>
+
+		<h2>Buy</h2>
 
 		<h4>Domestic</h4>
-		<select name="buy_stock_dow30">
+		<div class="container">
+			<div class="form-inline">
+		<select name="buy_stock_dow30" class="form-control">
 			<option name="aapl"
 			<?php if (isset($_SESSION['buy_stock_dow30']) && $_SESSION['buy_stock_dow30'] == "AAPL") echo "selected";
 			?>>AAPL</option>
@@ -58,7 +87,7 @@ if (!isset($_SESSION['username'])) {
 			?>>PFE</option>
 		</select>
 		&nbsp;
-			<button type="submit" name="view_price_domestic">View Price</button>
+			<button type="submit" name="view_price_domestic" class="btn btn-default">View Price</button>
 		&nbsp;
 		<input type="number" step="1" min="1" name="buy_shares_dow30" placeholder="Shares"
 		<?php if (isset($_SESSION['buy_shares_dow30'])) {echo "value=\"" . $_SESSION['buy_shares_dow30'] . "\"";}?>
@@ -69,8 +98,12 @@ if (!isset($_SESSION['username'])) {
 			echo $_SESSION['buy_stock_dow30'] . ": $" . $_SESSION['price_domestic'];
 		}
 		?>
+		</div>
+		</div>
 		<h4>Overseas</h4>
-		<select name="buy_stock_overseas">
+		<div class="container">
+			<div class="form-inline">
+		<select name="buy_stock_overseas" class="form-control">
 			<option name="tatamotors.ns"
 			<?php if (isset($_SESSION['buy_stock_overseas']) && $_SESSION['buy_stock_overseas'] == "TATAMOTORS.NS") echo "selected";
 			?>>TATAMOTORS.NS</option>
@@ -85,7 +118,7 @@ if (!isset($_SESSION['username'])) {
 			?>>KOTAKBANK.NS</option>
 		</select>
 		&nbsp;
-		<button type="submit" name="view_price_overseas">View Price</button>
+		<button type="submit" name="view_price_overseas" class="btn btn-default">View Price</button>
 		&nbsp;
 		<input type="number" step="1" min="1" name="buy_shares_overseas" placeholder="Shares"
 		<?php if (isset($_SESSION['buy_shares_overseas'])) {echo "value=\"" . $_SESSION['buy_shares_overseas'] . "\"";}?>
@@ -96,9 +129,13 @@ if (!isset($_SESSION['username'])) {
 			echo $_SESSION['buy_stock_overseas'] . ": $" . $_SESSION['price_overseas'];
 		}
 		?>
+		</div>
+		</div>
 
-		<h1>Sell</h1>
-		<select name="sell_stock">
+		<h2>Sell</h2>
+		<div class="container">
+			<div class="form-inline">
+		<select name="sell_stock" class="form-control" >
 			<optgroup label="Domestic">
 			<option name="aapl"
 			<?php if (isset($_SESSION['sell_stock']) && $_SESSION['sell_stock'] == "AAPL") echo "selected";
@@ -134,7 +171,7 @@ if (!isset($_SESSION['username'])) {
 			?>>KOTAKBANK.NS</option>
 		</optgroup>
 	</select>
-		<button type="submit" name="select">Select</button>
+		<button type="submit" name="select" class="btn btn-default">Select</button>
 		&nbsp;
 		<input type="number" step="1" min="1" name="sell_shares" placeholder="Shares"
 		<?php if (isset($_SESSION['sell_shares'])) {echo "value=\"" . $_SESSION['sell_shares'] . "\"";}?>
@@ -154,7 +191,8 @@ if (!isset($_SESSION['username'])) {
 			?>
 
 			<br>
-			<table>
+			 <div class="container">
+  					<table class="table table-striped">
 				<tr>
 					<th>Select</th>
 					<th>Symbol</th>
@@ -180,16 +218,18 @@ if (!isset($_SESSION['username'])) {
 				$_SESSION['count'] = $count;
 				?>
 			</table>
-
+			</div>
 			<?php
 		}
 		?>
-
+		</div>
+		</div>
 		<br>
 
-	<h1>Deposit/Withdraw Cash</h1>
-
-		<select name="cash_type">
+	<h2>Deposit/Withdraw Cash</h2>
+	<div class="container">
+			<div class="form-inline">
+		<select name="cash_type" class="form-control">
 			<option value="deposit">Deposit</option>
 			<option value="withdraw">Withdraw</option>
 		</select>
@@ -198,7 +238,7 @@ if (!isset($_SESSION['username'])) {
 		<?php if (isset($_SESSION['amount'])) {echo "value=\"" . $_SESSION['amount'] . "\"";}?>
 		/>
 		<br><br>
-		<button type="submit" name="add">Add to Portfolio</button>
+		<button type="submit" name="add" class="btn btn-default">Add to Portfolio</button>
 	</form>
 	<?php
 	if (isset($_SESSION['display_alert'])) {
@@ -206,6 +246,8 @@ if (!isset($_SESSION['username'])) {
 		unset($_SESSION['display_alert']);
 	}
 	?>
+	</div>
+	</div>
 </center>
 </body>
 </html>

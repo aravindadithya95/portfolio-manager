@@ -1,6 +1,14 @@
 <html>
 <head>
     <title>View Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .navbar{
+        margin-bottom:0;
+        border-radius:0;
+      }
+    </style>
 </head>
 <body>
 <center>
@@ -53,7 +61,8 @@ $s_shares = 0;
 		<button type="submit">Logout</button>
 	</form>
 
-  <table>
+  <div class="container">
+  <table class="table table-striped">
     <tr>
       <th>Name</th>
       <th>Symbol</th>
@@ -222,6 +231,7 @@ $s_shares = 0;
       </td>
     </tr>
   </table>
+  </div>
   <?php
   mysqli_close($conn);
   ?>
