@@ -15,6 +15,7 @@
 <?php
 session_start();
 require 'scripts/database.php';
+require 'scripts/o_betascraper.php';
 
 /*
 if (!isset($_SESSION['username'])) {
@@ -162,8 +163,20 @@ $s_shares = 0;
         if ($category == "dow30") {
           echo $beta;
         }
+        elseif ($symbol == "TATAMOTORS.NS"){
+          echo $beta_tata;
+        }
+        elseif ($symbol == "TCS.NS") {
+          echo $beta_tcs;
+        }
+        elseif ($symbol == "BHARTIARTL.NS") {
+          echo $beta_artl;
+        }
+        elseif ($symbol == "KOTAKBANK.NS") {
+          echo $beta_ktk;
+        }
         else {
-          echo "yolo";
+          echo "N/A"
         }
 
         ?>
