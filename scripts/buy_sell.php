@@ -169,7 +169,7 @@ if (isset($_POST['add'])) {
     exit();
   }
   $total_value = $temp_dow30_value + $temp_overseas_value;
-  if ($temp_cash > 0.1 * $total_value) {
+  if ($temp_cash > 0.1 * ($total_value + $temp_cash)) {
     $_SESSION['display_alert'] = "Transaction successful. Cash value exceeding 10% of portfolio value(non-cash value).";
     //header("location: ../home.php");
     //exit();
@@ -177,11 +177,29 @@ if (isset($_POST['add'])) {
   if ($temp_overseas_value < 0.27 * $total_value OR $temp_overseas_value > 0.33 * $total_value) {
     echo "70-30 imbalance" . "<br>";
 
-    $dow30_percent = round($temp_dow30_value / ($temp_dow30_value + $temp_overseas_value) * 100);
-    $overseas_percent = round($temp_overseas_value / ($temp_dow30_value + $temp_overseas_value) * 100);
-    $cash_percent = round($temp_cash / ($temp_dow30_value + $temp_overseas_value) * 100);
+    $dow30_percent = round($temp_dow30_value / ($temp_dow30_value + $temp_overseas_value) * 100, 1);
+    if (is_nan($dow30_percent)) {
+      $dow30_percent = 0;
+    }
+    $overseas_percent = round($temp_overseas_value / ($temp_dow30_value + $temp_overseas_value) * 100, 1);
+    if (is_nan($overseas_percent))    
+      $overseas_percent = 0;
+    $cash_percent = round($temp_cash / ($temp_dow30_value + $temp_overseas_value) * 100, 1);
+    if (is_nan($cash_percent))
+      $cash_percent = 0;
 
-    $message = "Transaction successful. Domestic value: " . $dow30_percent . "%, Overseas value: " . $overseas_percent . "%, Cash value: " . $cash_percent . "%. ";    
+      $dow30_split = round($temp_dow30_value / ($temp_dow30_value + $temp_overseas_value + $temp_cash) * 100, 1);
+      if (is_nan($dow30_split))
+          $dow30_split = 0;
+      $overseas_split = round($temp_overseas_value / ($temp_dow30_value + $temp_overseas_value + $temp_cash) * 100, 1);
+      if (is_nan($overseas_split))
+          $overseas_split = 0;
+      $cash_split = round($temp_cash / ($temp_dow30_value + $temp_overseas_value + $temp_cash) * 100, 1);
+      if (is_nan($cash_split))
+          $cash_split = 0;
+
+    $message = "Transaction successful. Non-cash split: Domestic: " . $dow30_percent . "%, Overseas: " . $overseas_percent . "%";
+    $message = $message . ". Portfolio split: Domestic: " . $dow30_split . "%, Overseas: " . $overseas_split . "%, Cash: " . $cash_split . "%.";
     if ($temp_overseas_value > 0.33 * $total_value) {
         $message = $message . "Buy more domestic stock in value or sell overseas stock in value to get to 70-30.";
     } else {
