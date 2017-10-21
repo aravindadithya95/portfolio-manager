@@ -24,7 +24,11 @@ header("Content-Type:text/csv; charset=utf-8");
 header("Content-Disposition:attachment; filename=portfolio.csv");
 $output = fopen("php://output", "w");
 
+#$p_cost_basis = 0;
+#$p_mkt_value = 0;
+
 fputcsv($output, array("Name","Symbol","Last price","Price in Foreign Currency","Change","Shares","Cost Basis","Market Value","Gain","Gain %","Expected Return"));
+#fputcsv($output, $array("Cash", "Portfolio Cost Basis", "Portfolio Market Value"));
 while ($record = mysqli_fetch_assoc($result))
 {
 $stockname =  "";
@@ -50,9 +54,11 @@ $sh = mysqli_fetch_assoc($result_sh);
 $shares = $sh['sum(shares)'];
 $cb = mysqli_fetch_assoc($result_cb);
 $cost_basis = $cb['sum(cost_basis)'];
-//$p_cost_basis = $p_cost_basis + $cost_basis;
+#$p_cost_basis = $p_cost_basis + $cost_basis;
 $market_value = $shares * $current_price;
-//$p_mkt_value = $p_mkt_value + $market_value;
+#$c = mysqli_fetch_assoc($result_cash);
+#$cash = $c['cash'];
+#$p_mkt_value = $p_mkt_value + $cash;
 $mkt_val = round($market_value, 2);
 $gain = $market_value - $cost_basis;
 $gain_cent = ($gain/$cost_basis)*100;
@@ -68,6 +74,7 @@ $return = round($return, 2);
 
 fputcsv($output, array($stockname,$symbol,$finalprice,$fprice,$gain_and_percent,$shares,$cost_basis,$mkt_val,$gain,$gain_cent, $return));
 }
+#fputcsv($output, $array($cash, $p_cost_basis, $p_mkt_value));
 fclose($output);
 
 ?>

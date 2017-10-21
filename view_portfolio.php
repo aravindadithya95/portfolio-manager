@@ -15,7 +15,7 @@
 <?php
 session_start();
 require 'scripts/database.php';
-//require 'scripts/o_betascraper.php';
+require 'scripts/o_betascraper.php';
 
 /*
 if (!isset($_SESSION['username'])) {
@@ -164,16 +164,16 @@ $s_shares = 0;
           echo $beta;
         }
         elseif ($symbol == "TATAMOTORS.NS"){
-          //echo $beta_tata;
+          echo "N/A";
         }
         elseif ($symbol == "TCS.NS") {
-          //echo $beta_tcs;
+          echo "N/A";
         }
         elseif ($symbol == "BHARTIARTL.NS") {
-          //echo $beta_artl;
+          echo "N/A";
         }
         elseif ($symbol == "KOTAKBANK.NS") {
-          //echo $beta_ktk;
+          echo "N/A";
         }
         else {
           echo "N/A";

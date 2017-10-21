@@ -39,14 +39,21 @@ $xpath_tcs = new DOMXPath($dom_tcs);
 $xpath_ktk = new DOMXPath($dom_ktk);
 $xpath_tata = new DOMXPath($dom_tata);
 
-#$bta_artl = $xpath_artl->query("//*[@id=\"ctl00_ContentPlaceHolder1_marketdata\"]/div/table/tbody/tr[1]/td[2]/text()");
-#$bta_tcs = $xpath_tcs->query("//*[@id=\"ctl00_ContentPlaceHolder1_marketdata\"]/div/table/tbody/tr[1]/td[2]");
-#$bta_ktk = $xpath_ktk->query("//*[@id=\"ctl00_ContentPlaceHolder1_marketdata\"]/div/table/tbody/tr[1]/td[2]");
-#$bta_tata = $xpath_tata->query("//*[@id=\"ctl00_ContentPlaceHolder1_marketdata\"]/div/table/tbody/tr[1]/td[2]");
+/*
+$bta_artl = $xpath_artl->query("//*[@id="ctl00_ContentPlaceHolder1_marketdata"]/div/table/tbody/tr[1]/td[2]");
+$bta_tcs = $xpath_tcs->query("//*[@id="ctl00_ContentPlaceHolder1_marketdata"]/div/table/tbody/tr[1]/td[2]");
+$bta_ktk = $xpath_ktk->query("//*[@id="ctl00_ContentPlaceHolder1_marketdata"]/div/table/tbody/tr[1]/td[2]");
+$bta_tata = $xpath_tata->query("//*[@id="ctl00_ContentPlaceHolder1_marketdata"]/div/table/tbody/tr[1]/td[2]");
 
-#$beta_artl = $bta_artl->item(0)->nodeValue;
-#$beta_tcs = $bta_tcs->item(0)->nodeValue;
-#$beta_ktk = $bta_ktk->item(0)->nodeValue;
-#$beta_tata = $bta_tata->item(0)->nodeValue;
+$beta_artl = $bta_artl->item(0)->nodeValue;
+$beta_tcs = $bta_tcs->item(0)->nodeValue;
+$beta_ktk = $bta_ktk->item(0)->nodeValue;
+$beta_tata = $bta_tata->item(0)->nodeValue;
+*/
+
+$beta_artl = 0.65;
+$beta_tcs = "-0.07"; 
+$beta_ktk = 0.03;
+$beta_tata = 1.86
 
 ?>
