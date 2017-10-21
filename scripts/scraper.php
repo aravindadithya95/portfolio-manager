@@ -20,6 +20,7 @@ $xpath = new DOMXPath($dom);
 $price = $xpath->query('//*[@id="quote-header-info"]/div[3]/div[1]/div/span[1]/text()');
 $sign = $xpath->query('//*[@id="quote-header-info"]/div[3]/div[1]/div/span[2]/text()');
 $change = $xpath->query('//*[@id="quote-header-info"]/div[3]/div[1]/div/span[2]/text()[2]');
+$stock_beta = $xpath->query('//*[@id="quote-summary"]/div[2]/table/tbody/tr[2]/td[2]/span/text()');
 #$change = $xpath->query('//*[@id="quote-header-info"]/div[3]/div[1]/div/span[2]')
 #node = $xpath->query('//*[@id="quote-header-info"]/[class="D(ib) Mend(20px)"]/span[0]/text()')
 #echo "Stockname:  " . $stockname;
@@ -30,6 +31,8 @@ if (isset($change->item(0)->nodeValue)) {
     $gain_and_percent = (string)$gain_and_percent . $change->item(0)->nodeValue;
 }
 $current_price = str_replace(",", "", $current_price);
+$beta = $stock_beta->item(0)->nodeValue;
+
 #echo $current_price;
 #echo "<br>";
 #echo "Gain (Gain %):  ". $gain_and_percent;

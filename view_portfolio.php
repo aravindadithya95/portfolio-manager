@@ -74,6 +74,7 @@ $s_shares = 0;
       <th>Market Value</th>
       <th>Gain</th>
       <th>Gain %</th>
+      <th>Beta</th>
       <th>Expected Return</th>
     </tr>
 
@@ -153,6 +154,18 @@ $s_shares = 0;
         <?php
         $gain_cent = ($gain/$cost_basis)*100;
         echo round($gain_cent, 2);
+        ?>
+      </td>
+      <td>
+        <?php
+        $stockname = $symbol;
+        if ($category == "dow30") {
+          echo $beta;
+        }
+        else {
+          echo "yolo";
+        }
+
         ?>
       </td>
       <td>
