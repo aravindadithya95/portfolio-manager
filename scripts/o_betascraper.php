@@ -1,5 +1,5 @@
 <?php
-$url = "http://www.morningstar.in/stocks/"
+$url = "http://www.morningstar.in/stocks/";
 
 $url_artl = $url . "0p0000az6m/bse-bharti-airtel-ltd/overview.aspx";
 $url_tcs = $url . "0p0000axt9/bse-tata-consultancy-services-ltd/overview.aspx";
@@ -39,14 +39,14 @@ $xpath_tcs = new DOMXPath($dom_tcs);
 $xpath_ktk = new DOMXPath($dom_ktk);
 $xpath_tata = new DOMXPath($dom_tata);
 
-$bta_artl = $xpath_artl->query("//*[@id="ctl00_ContentPlaceHolder1_marketdata"]/div/table/tbody/tr[1]/td[2]");
-$bta_tcs = $xpath_tcs->query("//*[@id="ctl00_ContentPlaceHolder1_marketdata"]/div/table/tbody/tr[1]/td[2]");
-$bta_ktk = $xpath_ktk->query("//*[@id="ctl00_ContentPlaceHolder1_marketdata"]/div/table/tbody/tr[1]/td[2]");
-$bta_tata = $xpath_tata->query("//*[@id="ctl00_ContentPlaceHolder1_marketdata"]/div/table/tbody/tr[1]/td[2]");
+#$bta_artl = $xpath_artl->query("//*[@id=\"ctl00_ContentPlaceHolder1_marketdata\"]/div/table/tbody/tr[1]/td[2]/text()");
+#$bta_tcs = $xpath_tcs->query("//*[@id=\"ctl00_ContentPlaceHolder1_marketdata\"]/div/table/tbody/tr[1]/td[2]");
+#$bta_ktk = $xpath_ktk->query("//*[@id=\"ctl00_ContentPlaceHolder1_marketdata\"]/div/table/tbody/tr[1]/td[2]");
+#$bta_tata = $xpath_tata->query("//*[@id=\"ctl00_ContentPlaceHolder1_marketdata\"]/div/table/tbody/tr[1]/td[2]");
 
-$beta_artl = $bta_artl->item(0)->nodeValue;
-$beta_tcs = $bta_tcs->item(0)->nodeValue;
-$beta_ktk = $bta_ktk->item(0)->nodeValue;
-$beta_tata = $bta_tata->item(0)->nodeValue;
+#$beta_artl = $bta_artl->item(0)->nodeValue;
+#$beta_tcs = $bta_tcs->item(0)->nodeValue;
+#$beta_ktk = $bta_ktk->item(0)->nodeValue;
+#$beta_tata = $bta_tata->item(0)->nodeValue;
 
 ?>
