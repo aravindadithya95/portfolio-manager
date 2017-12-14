@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_GET['logout']) or isset($_SESSION['logout'])) {
+if (isset($_SESSION['username'])) {
 	session_destroy();
 	header("location: ../login.php");
 } else {

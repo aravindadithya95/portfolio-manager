@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+
+nav {
+  margin-bottom: 20px;
+  background-color: #f1f1f1;
+}
+
+button {
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.form-control {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.heading {
+  padding-top: 20px;
+}
+
+.flash {
+  margin-top: 10px;
+}
+
+th {
+  background-color: #f1f1f1;
+}
+
+.progress {
+  margin: 20px;
+}

@@ -1,9 +1,15 @@
 <?php
 session_start();
 
-if (isset($_SESSION['username'])) {
-	header('location: home.php');
+if (!isset($_SESSION['username'])) {
+  header('location: login.php');
+  exit;
 }
+
+$username = $_SESSION['username'];
+
+require 'scripts/database.php';
+require_once 'scripts/validation.php';
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +18,7 @@ if (isset($_SESSION['username'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sign Up | Portfolio</title>
+    <title>Liquidate | Portfolio</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -24,19 +30,23 @@ if (isset($_SESSION['username'])) {
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-sm navbar-light">
+    <nav class="navbar navbar-expand-md navbar-light">
       <div class="container">
-        <a class="navbar-brand" href="">Portfolio Manager</a>
+        <a class="navbar-brand" href="home.php">Portfolio Manager</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ml-auto">
-            <a class="nav-item nav-link font-weight-bold" href="signup.php">Sign Up</a>
+            <a class="nav-item nav-link" href="portfolio.php">Portfolio</a>
+            <a class="nav-item nav-link" href="transactions.php">Transactions</a>
+            <a class="nav-item nav-link font-weight-bold" href="scripts/logout.php">Logout</a>
           </div>
+        </div>
       </div>
     </nav>
 
     <div class="container text-center">
-      <h3>Sign Up</h3>
-
-			<!-- Flash Messages -->
       <div class="flash">
         <?php
         if (isset($_SESSION['flash'])) {?>
@@ -49,20 +59,11 @@ if (isset($_SESSION['username'])) {
         ?>
       </div>
 
-      <form action="scripts/register.php" method="post">
-				<div class="form-group">
-          <input type="text" class="form-control" name="name" placeholder="Name" required>
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" name="username" placeholder="Username" required>
-        </div>
-        <div class="form-group">
-          <input type="password" class="form-control" name="password" placeholder="Password" required>
-        </div>
-				<div class="form-group">
-          <input type="password" class="form-control" name="re-password" placeholder="Re-enter Password" required>
-        </div>
-        <button type="submit" class="btn btn-primary" name="signup">Sign Up</button>
+      <h3>Liquidate Portfolio</h3>
+
+      <p>Are you sure you want to liquidate your portfolio? All of your stocks will be sold at current price and your cash withdrawn.</p>
+      <form action="scripts/<?php if ($validated) {echo "liquidate.php";} else {echo "validate.php";} ?>" method="post">
+        <button type="submit" class="btn btn-danger" name="liquidate">Liquidate</button>
       </form>
     </div>
   </body>

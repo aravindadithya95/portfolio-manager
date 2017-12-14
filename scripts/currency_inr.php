@@ -1,5 +1,4 @@
 <?php
-
 $currency = "USDINR=X";
 $url = 'https://finance.yahoo.com/quote/' . $currency;
 
@@ -15,6 +14,4 @@ $xpath = new DOMXPath($dom);
 $rate = $xpath->query('//*[@id="quote-header-info"]/div[3]/div[1]/div/span[1]/text()');
 
 $exc = $rate->item(0)->nodeValue;
-//echo $exc;
-
 ?>

@@ -1,47 +1,29 @@
 <?php
 session_start();
+
+require_once 'database.php';
 $username = $_SESSION['username'];
 
-require 'database.php';
+include 'validation.php';
 
-$query = "SELECT * FROM users WHERE username = '$username'";
-$result = mysqli_query($conn, $query);
-$row = mysqli_fetch_assoc($result);
-
-$dow30_value = $row['dow30_value'];
-$overseas_value = $row['overseas_value'];
-$cash = $row['cash'];
-
-$dow30_percent = round($dow30_value / ($dow30_value + $overseas_value) * 100, 1);
-if (is_nan($dow30_percent)) {
-    $dow30_percent = 0;
-}
-$overseas_percent = round($overseas_value / ($dow30_value + $overseas_value) * 100, 1);
-if (is_nan($overseas_percent))    
-    $overseas_percent = 0;
-$cash_percent = round($cash / ($dow30_value + $overseas_value) * 100, 1);
-if (is_nan($cash_percent))
-    $cash_percent = 0;
-
-
-$dow30_split = round($dow30_value / ($dow30_value + $overseas_value + $cash) * 100, 1);
-if (is_nan($dow30_split))
-    $dow30_split = 0;
-$overseas_split = round($overseas_value / ($dow30_value + $overseas_value + $cash) * 100, 1);
-if (is_nan($overseas_split))
-    $overseas_split = 0;
-$cash_split = round($cash / ($dow30_value + $overseas_value + $cash) * 100, 1);
-if (is_nan($cash_split))
-    $cash_split = 0;
-
-$condition = true;
-if ($dow30_percent < 67 or $dow30_percent > 73 or $cash_percent > 10) {
-    $condition = false; 
+if ($validated) {
+  $_SESSION['flash'] = array(
+    "Your portfolio is valid! You may withdraw or liquidate if you'd like to.<br>
+    <strong>Non-cash split: </strong>Dow-30(<strong>" . $dow30_percent . "%</strong>), Overseas(<strong>" . $overseas_percent . "%</strong>).<br>
+    <strong>Portfolio split: </strong>Dow-30(<strong>" . $dow30_split . "%</strong>), Overseas(<strong>" . $overseas_split . "%</strong>), Cash(<strong>" . $cash_split ."%</strong>)<br>
+    <strong>Validation requirements: </strong>Dow 30 and Overseas stocks must be approximately at a 70:30 split, Cash value must not exceed 10% of portfolio value.",
+    'success'
+  );
+} else {
+  $_SESSION['flash'] = array(
+    "Your portfolio is not valid. You cannot withdraw or liquidate until your portfolio is valid.<br>
+    <strong>Non-cash split<br></strong>Dow-30(<strong>" . $dow30_percent . "%</strong>), Overseas(<strong>" . $overseas_percent . "%</strong>).<br>
+    <strong>Portfolio split<br></strong>Dow-30(<strong>" . $dow30_split . "%</strong>), Overseas(<strong>" . $overseas_split . "%</strong>), Cash(<strong>" . $cash_split ."%</strong>)<br>
+    <strong>Validation requirements<br></strong>Dow 30 and Overseas stocks must be approximately at a 70:30 split, Cash value must not exceed 10% of portfolio value.",
+    'warning'
+  );
 }
 
-$message = "Non-cash split: Domestic: " . $dow30_percent . "%, Overseas: " . $overseas_percent . "%";
-$message = $message . ". Portfolio split: Domestic: " . $dow30_split . "%, Overseas: " . $overseas_split . "%, Cash: " . $cash_split . "%.";
-$_SESSION['display_alert'] = $message;
-header("location: ../home.php");
-exit();
+header('location: ' . $_SERVER['HTTP_REFERER']);
+exit;
 ?>
