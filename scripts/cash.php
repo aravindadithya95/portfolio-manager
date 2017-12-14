@@ -63,6 +63,8 @@ $query = "INSERT INTO transactions(type, username, cash_value) VALUES(
 )";
 mysqli_query($conn, $query);
 
+unset($_SESSION['amount']);
+
 header('location: ../home.php');
 exit;
 ?>

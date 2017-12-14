@@ -175,7 +175,7 @@ if ($_POST['type'] == 'Buy') {
     '$total'
   )";
   mysqli_query($conn, $query);
-  
+
   if ($category == 'Dow 30') {
     $query = "UPDATE users
               SET dow30_value = dow30_value - '$selected_total',
@@ -187,15 +187,16 @@ if ($_POST['type'] == 'Buy') {
                   cash = cash + '$total'
               WHERE username = '$username'";
   }
+  mysqli_query($conn, $query);
 
   $_SESSION['flash'] = array ("Transaction successful", 'success');
 }
 
 // Remove SESSION variables
-unset($_SESSION['type']);
-unset($_SESSION['symbol']);
+// unset($_SESSION['type']);
+// unset($_SESSION['symbol']);
 unset($_SESSION['shares']);
-unset($_SESSION['select']);
+// unset($_SESSION['select']);
 
 header('location: ../home.php');
 exit;

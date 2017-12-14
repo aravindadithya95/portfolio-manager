@@ -142,7 +142,7 @@ $username = $_SESSION['username'];
               ?>
             </td>
             <td>
-              <input type="text" name="shares" placeholder="Enter shares" class="form-control" value="<?php if (isset($_SESSION['symbol'])) echo $_SESSION['shares']; ?>">
+              <input type="text" name="shares" placeholder="Enter shares" class="form-control" value="<?php if (isset($_SESSION['shares'])) echo $_SESSION['shares']; ?>">
             </td>
 						<td>
 							<button type="submit" name="add" class="btn btn-outline-success">Add to Portfolio</button>
