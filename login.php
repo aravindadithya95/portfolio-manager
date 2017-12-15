@@ -35,6 +35,20 @@ if (isset($_SESSION['username'])) {
 
     <div class="container text-center">
       <h3>Login to continue</h3>
+
+			<!-- Flash Messages -->
+      <div class="flash">
+        <?php
+        if (isset($_SESSION['flash'])) {?>
+        <div class="alert alert-<?php echo $_SESSION['flash'][1] ?>" role="alert">
+          <?php echo $_SESSION['flash'][0]; ?>
+        </div>
+        <?php
+        }
+        unset($_SESSION['flash']);
+        ?>
+      </div>
+			
       <form action="scripts/auth.php" method="post">
         <div class="form-group">
           <input type="text" class="form-control" name="username" placeholder="Username">

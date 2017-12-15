@@ -203,7 +203,7 @@ $s_shares = 0;
 					</td>
         </tr>
         <?php } ?>
-				<tr>
+				<tr class="table-foot">
 					<td><strong>Portfolio value</strong></td>
 					<td></td>
 					<td>Cash:

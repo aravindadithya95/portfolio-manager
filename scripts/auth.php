@@ -19,7 +19,10 @@ $result = mysqli_query($conn, $query);
 if (mysqli_num_rows($result) > 0) {
 	$_SESSION['username'] = $username;
 	header("location: ../home.php");
+	exit;
 } else {
+	$_SESSION['flash'] = array("Username and password don't match", 'warning');
 	header("location: ../login.php");
+	exit;
 }
 ?>

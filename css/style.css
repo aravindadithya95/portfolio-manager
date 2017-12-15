@@ -35,3 +35,7 @@ th {
 .progress {
   margin: 20px;
 }
+
+.table-foot {
+  background-color: #f7f7f7;
+}
