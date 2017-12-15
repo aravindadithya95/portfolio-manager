@@ -92,7 +92,7 @@ $name = mysqli_fetch_assoc($result)['name'];
           <th>Transaction Time</th>
           <th>Shares</th>
           <th>Price</th>
-          <th>Overseas Price</th>
+          <th>Price in Foreign Currency</th>
           <th>Cash Value</th>
         </tr>
         <?php

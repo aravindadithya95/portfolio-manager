@@ -53,6 +53,8 @@ if ($type == 'Deposit') {
   $query = "UPDATE users SET cash = cash - '$amount' WHERE username = '$username'";
   mysqli_query($conn, $query);
 
+  $amount = -$amount;
+
   $_SESSION['flash'] = array("Transaction successful", 'success');
 }
 
