@@ -58,7 +58,7 @@ $name = mysqli_fetch_assoc($result)['name'];
           <button type="button" class="btn btn-outline-danger">Liquidate</button>
         </a>
         <a href="scripts/csv.php">
-          <button type="button" class="btn btn-outline-secondary">Export to CSV</button>
+          <button type="button" class="btn btn-outline-secondary">Export as CSV</button>
         </a>
       </div>
 
