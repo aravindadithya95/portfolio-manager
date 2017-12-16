@@ -39,6 +39,7 @@ $name = mysqli_fetch_assoc($result)['name'];
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ml-auto">
+						<a class="nav-item nav-link" href="home.php">Manage</a>
             <a class="nav-item nav-link" href="portfolio.php">Portfolio</a>
             <a class="nav-item nav-link active" href="transactions.php">Transactions</a>
             <a class="nav-item nav-link font-weight-bold" href="scripts/logout.php">Logout</a>

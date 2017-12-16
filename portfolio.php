@@ -57,6 +57,7 @@ $s_shares = 0;
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ml-auto">
+						<a class="nav-item nav-link" href="home.php">Manage</a>
             <a class="nav-item nav-link active" href="portfolio.php">Portfolio</a>
             <a class="nav-item nav-link" href="transactions.php">Transactions</a>
             <a class="nav-item nav-link font-weight-bold" href="scripts/logout.php">Logout</a>

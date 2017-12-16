@@ -28,7 +28,7 @@ if (isset($_SESSION['username'])) {
       <div class="container">
         <a class="navbar-brand" href="">Portfolio Manager</a>
           <div class="navbar-nav ml-auto">
-            <a class="nav-item nav-link font-weight-bold" href="signup.php">Sign Up</a>
+            <a class="nav-item nav-link font-weight-bold" href="login.php">Login</a>
           </div>
       </div>
     </nav>
