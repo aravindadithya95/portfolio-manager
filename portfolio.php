@@ -112,7 +112,6 @@ $s_shares = 0;
           <th>Gain</th>
           <th>Gain %</th>
           <th>Beta</th>
-          <th>Expected Return</th>
         </tr>
         <?php while ($record = mysqli_fetch_assoc($result)) { ?>
         <tr>
@@ -188,20 +187,6 @@ $s_shares = 0;
 
             ?>
           </td>
-					<td>
-						<?php
-						//Calculate rate from the FV(Real time value) = (Sept 1st Value) + (1 + r)^0.123
-		        $query_exp = "SELECT sept_price FROM stocks WHERE symbol = '$symbol'";
-		        $result_exp = mysqli_query($conn, $query_exp);
-		        $expr = mysqli_fetch_assoc($result_exp);
-		        $sept_price = $expr['sept_price'];
-		        $fraction=$price/$sept_price;
-		        $rate=pow(($fraction), 48/365)-1;
-		        $futureValue=$price*(pow((1+$rate),30/365));
-		        $return=$shares*$futureValue;
-		        echo round($return, 2);
-						?>
-					</td>
         </tr>
         <?php } ?>
 				<tr class="table-foot">
@@ -219,7 +204,6 @@ $s_shares = 0;
 					<td></td>
 					<td><?php echo "$" . $p_cost_basis; ?></td>
 					<td><?php echo "$" . round($p_mkt_value, 2); ?></td>
-					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
